@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>Floor Planning</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+</head>
+
+<body class="h-screen flex justify-center items-center">
+    <div>
+
+        <button onclick="setImage()">Build Image</button>
+        
+        <div class="draggable w-6 h-6 bg-green-500 m-1"></div>
+        <div class="draggable w-6 h-6 bg-green-500 m-1"></div>
+        <canvas id="floorPlan" class="border-2"></canvas>
+        <img src="" id="imageDisplay" class="border-2">
+    </div>
+    <script>
+        $(".draggable").draggable();
+        const canvasObject = document.querySelector("#floorPlan")
+        const imageDisplay = document.getElementById("imageDisplay");
+        const ctx = canvasObject.getContext("2d");
+
+        ctx.fillStyle = "red";
+        ctx.fillText("Kobi", 100, 100)
+
+        const setImage = () => {
+            // const draggables = document.querySelectorAll(".draggable");
+            // draggables.forEach(e =>{
+            //     ctx.drawImage(e, 10, 10);
+            // })
+            const dataURI = canvasObject.toDataURL();
+            imageDisplay.src = dataURI;
+        }
+
+    </script>
+</body>
+</html>
