@@ -2,9 +2,10 @@
 <head>
     <title>Floor Planning</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="./tailwind.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+    <script src="./html2canvas.js"></script>
 </head>
 
 <body class="h-screen flex justify-center items-center">
@@ -14,26 +15,173 @@
         
         <div class="draggable w-6 h-6 bg-green-500 m-1"></div>
         <div class="draggable w-6 h-6 bg-green-500 m-1"></div>
-        <canvas id="floorPlan" class="border-2"></canvas>
+        <canvas id="canvas" width="1000" height="1000" class="border-2"></canvas>
         <img src="" id="imageDisplay" class="border-2">
     </div>
     <script>
         $(".draggable").draggable();
-        const canvasObject = document.querySelector("#floorPlan")
+        $("#canvas").droppable({
+            drop: function(event, ui){
+                alert("Droppped")
+            }
+        });
+        const canvasObject = document.querySelector("#canvas")
         const imageDisplay = document.getElementById("imageDisplay");
-        const ctx = canvasObject.getContext("2d");
-
-        ctx.fillStyle = "red";
-        ctx.fillText("Kobi", 100, 100)
 
         const setImage = () => {
-            // const draggables = document.querySelectorAll(".draggable");
-            // draggables.forEach(e =>{
-            //     ctx.drawImage(e, 10, 10);
-            // })
             const dataURI = canvasObject.toDataURL();
             imageDisplay.src = dataURI;
         }
+        
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        
+        var canvasOffset = $("#canvas").offset();
+        var offsetX = canvasOffset.left;
+        var offsetY = canvasOffset.top;
+        
+        var isMouseDown = false;
+        var startX;
+        var startY;
+        var dragX;
+        var dragY;
+      
+        function make_base(){
+            base_image = new Image();
+            base_image.src = 'floorplan.png';
+            base_image.onload = function(){
+                scaleToFit(this);
+        }}
+        function scaleToFit(img){
+            var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+            var x = (canvas.width / 2) - (img.width / 2) * scale;
+            var y = (canvas.height / 2) - (img.height / 2) * scale;
+            ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+        }        
+        make_base()
+
+        var items = []
+        items.push({
+            x: 0,
+            y: 10,
+            width: 50,
+            height: 50,
+            color: "red",
+            isDragging: false
+        });
+        items.push({
+            x: 70,
+            y: 10,
+            width: 50,
+            height: 50,
+            color: "green",
+            isDragging: false
+        });
+        items.push({
+            x: 140,
+            y: 10,
+            width: 50,
+            height: 50,
+            color: "blue",
+            isDragging: false
+        });
+
+        draw();
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                if (isMouseDown) {
+
+                }
+                ctx.beginPath();
+                if (item.isDragging) {
+                    ctx.rect(item.x + dragX, item.y + dragY, item.width, item.height);
+                } else {
+                    ctx.rect(item.x, item.y, item.width, item.height);
+                }
+                ctx.fillStyle = item.color
+                ctx.fill();
+                make_base();
+            }
+        }
+
+
+        function setDragging(x, y) {
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                if (x >= item.x && x <= item.x + item.width && y >= item.y && y <= item.y + item.height) {
+                    item.isDragging = true;
+                }
+            }
+        }
+
+        function clearDragging(x, y) {
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                if (item.isDragging) {
+                    items[i].isDragging = false;
+                    item.x += dragX;
+                    item.y += dragY;
+                }
+            }
+        }
+
+        function handleMouseDown(e) {
+            mouseX = parseInt(e.clientX - offsetX);
+            mouseY = parseInt(e.clientY - offsetY);
+
+            // Put your mousedown stuff here
+            startX = mouseX;
+            startY = mouseY;
+            setDragging(startX, startY);
+            isMouseDown = true;
+        }
+
+        function handleMouseUp(e) {
+            mouseX = parseInt(e.clientX - offsetX);
+            mouseY = parseInt(e.clientY - offsetY);
+
+            // Put your mouseup stuff here
+            isMouseDown = false;
+            clearDragging();
+        }
+
+        function handleMouseOut(e) {
+            mouseX = parseInt(e.clientX - offsetX);
+            mouseY = parseInt(e.clientY - offsetY);
+
+            // Put your mouseOut stuff here
+            isMouseDown = false;
+            clearDragging();
+        }
+
+        function handleMouseMove(e) {
+            mouseX = parseInt(e.clientX - offsetX);
+            mouseY = parseInt(e.clientY - offsetY);
+
+            // Put your mousemove stuff here
+            if (isMouseDown) {
+                dragX = mouseX - startX;
+                dragY = mouseY - startY;
+                draw(mouseX, mouseY);
+            }
+
+        }
+
+        $("#canvas").mousedown(function (e) {
+            handleMouseDown(e);
+        });
+        $("#canvas").mousemove(function (e) {
+            handleMouseMove(e);
+        });
+        $("#canvas").mouseup(function (e) {
+            handleMouseUp(e);
+        });
+        $("#canvas").mouseout(function (e) {
+            handleMouseOut(e);
+        });
 
     </script>
 </body>
