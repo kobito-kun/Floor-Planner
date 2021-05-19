@@ -75,7 +75,17 @@
             var y = (canvas.height / 2) - (img.height / 2) * scale;
             ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
         }
+
         var items = []
+
+        function checkAndUpdateStates(){
+            if(initialStateX > 250){
+                initialStateX = 10;
+                initialStateY = initialStateY + 30;
+            }else{
+                initialStateX = initialStateX + 30;
+            }
+        }
 
         function addChair(){
             if(chairs !== maxChairs){
@@ -87,9 +97,8 @@
                     color: "red",
                     isDragging: false
                 });
-                initialStateX = initialStateX + 20;
-                initialStateY = initialStateY + 20;                
                 chairs++
+                checkAndUpdateStates()
                 draw();
                 updateValues();
             }else{
@@ -106,9 +115,8 @@
                     color: "red",
                     isDragging: false
                 });
-                initialStateX = initialStateX + 20;
-                initialStateY = initialStateY + 20;
                 tables++
+                checkAndUpdateStates()
                 draw();
                 updateValues();
             }else{
@@ -129,6 +137,9 @@
             clearCanvas();
             tables = 0;
             chairs = 0;
+            items = [];
+            initialStateX = 0;
+            initialStateY = 0;
             updateValues()
         }
 
@@ -215,8 +226,25 @@
                 dragY = mouseY - startY;
                 draw(mouseX, mouseY);
             }
-
         }
+        
+        canvas.addEventListener('touchmove', function(e) {
+            let touchLocation = e.targetTouches[0];
+            console.log(touchLocation)
+            touchX = parseInt(touchLocation.clientX - offsetX);
+            touchY = parseInt(touchLocation.clientY - offsetY);
+            setDragging(touchX, touchY);
+            //dragX = touchLocation.pageX - startX;
+            //dragY = touchLocation.pageY - startY;
+            draw(touchX, touchY);
+        })
+        
+        canvas.addEventListener('touchend', function(e) {
+            let touchLocation = e.targetTouches[0];
+            touchX = parseInt(touchLocation.clientX - offsetX);
+            touchY = parseInt(touchLocation.clientY - offsetY);
+            clearDragging();
+        })
 
         $("#canvas").mousedown(function (e) {
             handleMouseDown(e);
