@@ -6,29 +6,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js" integrity="sha512-wUa0ktp10dgVVhWdRVfcUO4vHS0ryT42WOEcXjVVF2+2rcYBKTY7Yx7JCEzjWgPV+rj2EDUr8TwsoWF6IoIOPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
 </head>
 
-<body class="min-h-screen flex justify-center items-center min-w-screen">
-    <section class="block lg:grid lg:grid-cols-2 w-screen h-screen" id="mainsection">
-        <div id="testitem" class="lg:h-screen hidden lg:flex justify-center items-center flex-col bg-green-200">
-            <h2 class="text-6xl font-black pt-2 text-green-900">Floor Planner</h2>
-            <p class="pb-2 cursor-pointer font-bold " onclick="resetCanvas()">RESET PLAN</p>
-            <div>
-                <button onclick="addChair()" class="py-4 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Chair</button>
-                <button onclick="addTable()" class="py-4 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Table</button>
+<body class="min-h-screen overflow-y-hidden	flex justify-center items-center min-w-screen">
+    <section class="grid lg:grid lg:grid-cols-2 w-screen h-screen" id="mainsection">
+        <div id="testitem" class="lg:h-screen lg:flex justify-center items-center flex-col bg-green-200 text-center">
+            <h2 class="text-6xl lg:block hidden font-black pt-2 text-green-900">Floor Planner</h2>
+            <div class="flex justify-center items-center mt-4">
+                <button onclick="addChair()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Chair</button>
+                <button onclick="addTable()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Table</button>
             </div>
-            <span>Currently using: <span class="font-bold" id="chairs">0/100 Chairs</span></span>
-            <span>Currently using: <span class="font-bold" id="tables">0/15 Tables</span></span>
+            <div>
+                <span>Currently using: <span class="font-bold" id="chairs">0/100 Chairs</span></span>
+            </div>
+            <div>
+                <span>Currently using: <span class="font-bold" id="tables">0/13 Tables</span></span>
+            </div>
         </div>
-        <div id="imageDownload" class="h-auto lg:h-screen flex justify-center items-center bg-green-100">
-            <i onclick="backwards()" class="fas fa-backward cursor-pointer" style="position: absolute; top: 15; left: 51%"></i>
-            <div id="draggable" class="bg-red-700 w-12 h-12" class="z-index: 2300"></div>
+        <div id="imageDownload" class="h-auto relative lg:h-screen flex justify-center items-center bg-green-100">
+
+            <!-- TESTING
+                <div class="bg-red-700 absolute cursor-pointer ease-out hover:scale-105 ease-in transform shadow-lg w-6 h-6 draggable"></div>
+            -->
            
             <div class="bg-white shadow-lg" id="image" style="background-image: url('/floorplan.png'); background-size: cover; height: 750px; width: 340px"></div>
            
-            <button onclick="saveTest()" class="py-4 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow" style="position: absolute; bottom: 15; right: 15;">CONTINUE</button>
+            <button id="saveButton" onclick="saveTest()" class="py-4 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow" style="position: absolute; bottom: 15; right: 15;">CONTINUE</button>
         </div>
     </section>
     <div id="imageWrapper" class="h-screen w-screen flex items-center justify-center bg-gray-200" style="display: none; position: absolute">
@@ -40,34 +44,135 @@
     </div>
     <script>
 
+        // initial testings
         $(function() {
-            $( "#draggable" ).draggable();
+            $( ".draggable" ).draggable();
+            
+            $('.draggable').dblclick(function(){
+                $(this).remove();
+                // chair count remove
+                chairsCount--
+            });
         } );
+        
         const imageDisplay = document.getElementById("imageDisplay");
         const imageWrapper = document.getElementById("imageWrapper");
         const chairsAmount = document.getElementById("chairs");
         const tablesAmount = document.getElementById("tables");
         const mainSection = document.getElementById("mainsection");
-        const mustachio = document.getElementById("draggable");
+        const mustachio = document.querySelectorAll(".draggable");
         const canvasObject = document.getElementById("image");
+        const allTesting = document.querySelectorAll(".draggable");
+        const imageDownload = document.getElementById("imageDownload");
+        const saveButton = document.getElementById("saveButton");
+        const maxChairs = 100;
+        const maxTables = 13;
+        let chairsCount = 0;
+        let tablesCount = 0;        
+        let downloadImageURL;
 
-        mustachio.addEventListener('touchmove', function (ev) {
-            var touchLocation = ev.targetTouches[0];
-            mustachio.style.left = parseInt(touchLocation.pageX-20) + 'px';
-            mustachio.style.top = parseInt(touchLocation.pageY-20) + 'px';
-        })        
+        mustachio.forEach(item => {
+            item.addEventListener('touchmove', function (ev) {
+                var touchLocation = ev.targetTouches[0];
+                item.style.left = parseInt(touchLocation.pageX-20) + 'px';
+                item.style.top = parseInt(touchLocation.pageY-20) + 'px';
+            })
+        })
+
+        function updateStuff(){
+            mustachio.forEach(item => {
+                item.addEventListener('touchmove', function (ev) {
+                    var touchLocation = ev.targetTouches[0];
+                    item.style.left = parseInt(touchLocation.pageX-20) + 'px';
+                    item.style.top = parseInt(touchLocation.pageY-20) + 'px';
+                })
+            })  
+        }
+
 
         function saveTest(){
+            saveButton.style.display = "none";
             domtoimage.toPng(document.getElementById("imageDownload")).then(function (dataUrl) {
-                //var link = document.createElement('a');
-                //link.download = 'my-image-name.png';
-                //link.href = dataUrl;
-                //ink.click();
                 setImage(dataUrl);
             });
         }
 
-        let downloadImageURL;
+        function addChair(){
+            
+            if(maxChairs === chairsCount){
+                alert("No more chairs available.")
+                return
+            }
+
+            // creates element and appends to body
+            const div = document.createElement("div");
+            div.className = "bg-red-700 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
+            imageDownload.appendChild(div)
+            
+            // makes it draggable
+            $( ".draggable" ).draggable();
+            
+            // on double click it removes it
+            $('.draggable').dblclick(function(){
+                $(this).remove();
+                // removes chair count
+                updateValues()
+            });
+            
+            // adds chair count
+            updateValues()
+
+            div.addEventListener('touchmove', function (ev) {
+                var touchLocation = ev.targetTouches[0];
+                div.style.left = parseInt(touchLocation.pageX-20) + 'px';
+                div.style.top = parseInt(touchLocation.pageY-20) + 'px';
+            })
+        }
+
+
+        function addTable(){
+            
+            if(maxTables === tablesCount){
+                alert("No more tables available.")
+                return
+            }
+
+            // creates element and appends to body
+            const div = document.createElement("div");
+            div.className = "bg-red-700 absolute shadow-lg w-12 h-8 cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
+            imageDownload.appendChild(div)
+            
+            // makes it draggable
+            $( ".draggable" ).draggable();
+            
+            // on double click it removes it
+            $('.draggable').dblclick(function(){
+                $(this).remove();
+                // removes chair count
+                updateValues()
+            });
+            
+            // adds chair count
+            updateValues()
+
+            div.addEventListener('touchmove', function (ev) {
+                var touchLocation = ev.targetTouches[0];
+                div.style.left = parseInt(touchLocation.pageX-20) + 'px';
+                div.style.top = parseInt(touchLocation.pageY-20) + 'px';
+            })
+        }        
+
+        
+        function updateValues(){
+            chairsCount = 0;
+            tablesCount = 0;
+            const tempTablesCount = document.querySelectorAll(".w-12")
+            tempTablesCount.forEach(item => tablesCount++)
+            const tempChairsCount = document.querySelectorAll(".w-6")
+            tempChairsCount.forEach(item => chairsCount++)
+            chairsAmount.innerHTML = `${chairsCount}/${maxChairs} Chairs`;
+            tablesAmount.innerHTML = `${tablesCount}/${maxTables} Tables`;
+        };
 
         function setImage(dataUrl){
             imageDisplay.src = dataUrl;
@@ -81,6 +186,7 @@
             mainSection.style.display = "grid";
             imageWrapper.style.display = "none";
             imageDisplay.style.display = "none";
+            saveButton.style.display = "block";
         }
 
         function downloadImage(){
