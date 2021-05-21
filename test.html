@@ -16,7 +16,7 @@
             <i class="fas fa-bars"></i>
         </div>
         <div id="testitem" class="lg:h-screen hidden lg:flex justify-center items-center flex-col bg-green-200 text-center">
-            <h2 class="text-2xl lg:text-6xl lg:block font-black lg:pt-0 pt-4 text-green-900">Nubian Gallery</h2>
+            <h2 class="text-2xl lg:text-6xl lg:block font-black lg:pt-0 p-4 text-green-900">Nubian Gallery</h2>
             <div class="flex justify-center items-center">
                 <button onclick="addChair()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Chair</button>
                 <button onclick="addTable()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Table</button>
@@ -82,8 +82,8 @@
         mustachio.forEach(item => {
             item.addEventListener('touchmove', function (ev) {
                 var touchLocation = ev.targetTouches[0];
-                item.style.left = parseInt(touchLocation.pageX-15) + 'px';
-                item.style.top = parseInt(touchLocation.pageY-120) + 'px';
+                item.style.left = parseInt(touchLocation.pageX) + 'px';
+                item.style.top = parseInt(touchLocation.pageY) + 'px';
             })
         })
 
@@ -91,8 +91,8 @@
             mustachio.forEach(item => {
                 item.addEventListener('touchmove', function (ev) {
                     var touchLocation = ev.targetTouches[0];
-                    item.style.left = parseInt(touchLocation.pageX-15) + 'px';
-                    item.style.top = parseInt(touchLocation.pageY-120) + 'px';
+                    item.style.left = parseInt(touchLocation.pageX) + 'px';
+                    item.style.top = parseInt(touchLocation.pageY) + 'px';
                 })
             })  
         }
@@ -133,8 +133,8 @@
             div.addEventListener('touchmove', function (ev) {
                 console.log(ev)
                 var touchLocation = ev.targetTouches[0];
-                div.style.left = parseInt(touchLocation.pageX-15) + 'px';
-                div.style.top = parseInt(touchLocation.pageY-120) + 'px';
+                div.style.left = parseInt(touchLocation.pageX) + 'px';
+                div.style.top = parseInt(touchLocation.pageY) + 'px';
             })
         }
 
@@ -157,17 +157,17 @@
             // on double click it removes it
             $('.draggable').dblclick(function(){
                 $(this).remove();
-                // removes chair count
+                // removes table count
                 updateValues()
             });
             
-            // adds chair count
+            // adds table count
             updateValues()
 
             div.addEventListener('touchmove', function (ev) {
                 var touchLocation = ev.targetTouches[0];
-                div.style.left = parseInt(touchLocation.pageX-15) + 'px';
-                div.style.top = parseInt(touchLocation.pageY-120) + 'px';
+                div.style.left = parseInt(touchLocation.pageX) + 'px';
+                div.style.top = parseInt(touchLocation.pageY) + 'px';
             })
         }        
 
