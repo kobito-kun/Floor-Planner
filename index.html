@@ -3,29 +3,59 @@
     <title>Floor Planning</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js" integrity="sha512-wUa0ktp10dgVVhWdRVfcUO4vHS0ryT42WOEcXjVVF2+2rcYBKTY7Yx7JCEzjWgPV+rj2EDUr8TwsoWF6IoIOPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
 </head>
+<style>
 
-<body class="min-h-screen flex justify-center items-center min-w-screen">
-    <section class="block lg:grid lg:grid-cols-2 w-screen h-screen" id="mainsection">
-        <div class="h-screen flex justify-center items-center flex-col bg-green-200">
-            <h2 class="text-6xl font-black pt-2 text-green-900">Floor Planner</h2>
-            <p class="pb-2 cursor-pointer font-bold " onclick="resetCanvas()">RESET PLAN</p>
-            <div>
-                <button onclick="addChair()" class="py-4 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Chair</button>
-                <button onclick="addTable()" class="py-4 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Table</button>
+</style>
+<body class="min-h-screen overflow-hidden flex justify-center items-center bg-green-100 min-w-screen">    
+    <div onclick="slideToggleOwo()" class="absolute duration-300 hover:text-gray-600 text-2xl cursor-pointer p-5 items-center flex lg:hidden top-0 left-0" style="z-index: 1000;">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div id="sidebar_mobile" class="absolute min-h-screen top-0 left-0">
+        <div class="lg:hidden absolute flex flex-col items-center justify-between py-5 left-0 h-screen w-16 bg-green-400" style="z-index: 900;">
+            <div></div>
+            <div class="text-2xl flex flex-col items-center justify-between">
+                <i class="fas fa-chair my-2 cursor-pointer hover:text-gray-600 duration-300"></i>
+                <i class="fas fa-table my-2 cursor-pointer hover:text-gray-600 duration-300"></i>
             </div>
-            <span>Currently using: <span class="font-bold" id="chairs">0/100 Chairs</span></span>
-            <span>Currently using: <span class="font-bold" id="tables">0/15 Tables</span></span>
+            <i class="fas fa-forward m-3"></i>
         </div>
-        <div class="h-auto lg:h-screen flex justify-center items-center bg-green-100">
-            <i onclick="backwards()" class="fas fa-backward cursor-pointer" style="position: absolute; top: 15; left: 51%"></i>
-            <div class="bg-white shadow-lg" style="background-image: url('/floorplan.png'); background-size: cover;">
-                <canvas id="canvas" width="340" height="750"></canvas>
+        <div class="lg:hidden absolute flex flex-col items-center justify-between py-5 left-14 h-screen w-40 bg-green-400" style="z-index: 500;">
+            <div></div>
+            <div class="uppercase font-bold text-lg flex flex-col items-center justify-between">
+                <span class="my-2">Add 0/100</span>
+                <span class="my-2">Add 0/13</span>
             </div>
-            <button onclick="setImage()" class="py-4 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow" style="position: absolute; bottom: 15; right: 15;">CONTINUE</button>
+            <button id="saveButton" onclick="saveTest()" class="bg-green-600 font-bold text-white py-2 px-4 rounded-xl focus:outline-none hover:bg-green-700 duration-300 shadow">CONTINUE</button>
+        </div>    
+    </div>
+    <section class="grid lg:grid lg:grid-cols-2 w-screen h-screen" id="mainsection">
+        <div id="testitem" class="lg:h-screen hidden lg:flex justify-center items-center flex-col bg-green-200 text-center">
+            <h2 class="text-2xl lg:text-6xl lg:block font-black lg:pt-0 p-4 text-green-900">Nubian Gallery</h2>
+            <div class="flex justify-center items-center">
+                <button onclick="addChair()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Chair</button>
+                <button onclick="addTable()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Table</button>
+            </div>
+            <div>
+                <span>Currently using: <span class="font-bold" id="chairs">0/100 Chairs</span></span>
+            </div>
+            <div>
+                <span>Currently using: <span class="font-bold" id="tables">0/13 Tables</span></span>
+            </div>
+        </div>
+        <div id="imageDownload" class="h-auto relative lg:h-screen flex justify-end p-5 items-center bg-green-100">
+
+            <!-- TESTING
+                <div class="bg-red-700 absolute cursor-pointer ease-out hover:scale-105 ease-in transform shadow-lg w-6 h-6 draggable"></div>
+            -->
+           
+            <div class="bg-white shadow-lg" id="image" style="background-image: url('/floorplan.png'); background-size: cover; height: 750px; width: 340px"></div>
+           
         </div>
     </section>
     <div id="imageWrapper" class="h-screen w-screen flex items-center justify-center bg-gray-200" style="display: none; position: absolute">
@@ -36,255 +66,145 @@
         </div>
     </div>
     <script>
-        const canvasObject = document.querySelector("#canvas")
+
+        // initial testings
+        $(function() {
+            $( ".draggable" ).draggable();
+            
+            $('.draggable').dblclick(function(){
+                $(this).remove();
+                // chair count remove
+                chairsCount--
+            });
+        } );
+        
         const imageDisplay = document.getElementById("imageDisplay");
         const imageWrapper = document.getElementById("imageWrapper");
         const chairsAmount = document.getElementById("chairs");
         const tablesAmount = document.getElementById("tables");
         const mainSection = document.getElementById("mainsection");
-
+        const mustachio = document.querySelectorAll(".draggable");
+        const canvasObject = document.getElementById("image");
+        const allTesting = document.querySelectorAll(".draggable");
+        const imageDownload = document.getElementById("imageDownload");
+        const saveButton = document.getElementById("saveButton");
+        const maxChairs = 100;
+        const maxTables = 13;
+        let chairsCount = 0;
+        let tablesCount = 0;        
         let downloadImageURL;
-        let maxChairs = 100;
-        let maxTables = 15;
-        let chairs = 0;
-        let tables = 0;
 
-        var canvas = document.getElementById("canvas");
-        var ctx = canvas.getContext("2d");
-        
-        var canvasOffset = $("#canvas").offset();
-        var offsetX = canvasOffset.left;
-        var offsetY = canvasOffset.top;
-
-        var initialStateX = 10;
-        var initialStateY = 10;
-        
-        var isMouseDown = false;
-        var startX;
-        var startY;
-        var dragX;
-        var dragY;
-
-        function make_base(){
-            base_image = new Image();
-            base_image.src = 'floorplan.png';
-            base_image.onload = function(){
-                scaleToFit(this);
-        }}
-        function scaleToFit(img){
-            var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-            var x = (canvas.width / 2) - (img.width / 2) * scale;
-            var y = (canvas.height / 2) - (img.height / 2) * scale;
-            ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+        function slideToggleOwo(){
+            $("#sidebar_mobile").toggle();
         }
 
-        var items = []
+        mustachio.forEach(item => {
+            item.addEventListener('touchmove', function (ev) {
+                var touchLocation = ev.targetTouches[0];
+                item.style.left = parseInt(touchLocation.pageX) + 'px';
+                item.style.top = parseInt(touchLocation.pageY) + 'px';
+            })
+        })
 
-        function checkAndUpdateStates(){
-            if(initialStateX > 250){
-                initialStateX = 10;
-                initialStateY = initialStateY + 30;
-            }else{
-                initialStateX = initialStateX + 30;
-            }
+        function updateStuff(){
+            mustachio.forEach(item => {
+                item.addEventListener('touchmove', function (ev) {
+                    var touchLocation = ev.targetTouches[0];
+                    item.style.left = parseInt(touchLocation.pageX) + 'px';
+                    item.style.top = parseInt(touchLocation.pageY) + 'px';
+                })
+            })  
         }
 
-        function backwards(){
-            if(items.length > 0){
-                initialStateX = initialStateX - 30
-                items.pop()
-                draw();
-                updateValues();            
-            }
+
+        function saveTest(){
+            saveButton.style.display = "none";
+            domtoimage.toPng(document.getElementById("imageDownload")).then(function (dataUrl) {
+                setImage(dataUrl);
+            });
         }
 
         function addChair(){
-            if(chairs !== maxChairs){
-                items.push({
-                    x: Number(initialStateX),
-                    y: Number(initialStateY),
-                    width: 20,
-                    height: 20,
-                    color: "red",
-                    isDragging: false
-                });
-                chairs++
-                checkAndUpdateStates()
-                draw();
-                updateValues();
-            }else{
-                alert("Out of available chairs.")
+            
+            if(maxChairs === chairsCount){
+                alert("No more chairs available.")
+                return
             }
+
+            // creates element and appends to body
+            const div = document.createElement("div");
+            div.className = "bg-red-700 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
+            imageDownload.appendChild(div)
+            
+            // makes it draggable
+            $( ".draggable" ).draggable();
+            
+            // on double click it removes it
+            $('.draggable').dblclick(function(){
+                $(this).remove();
+                // removes chair count
+                updateValues()
+            });
+            
+            // adds chair count
+            updateValues()
+
+            div.addEventListener('touchmove', function (ev) {
+                console.log(ev)
+                var touchLocation = ev.targetTouches[0];
+                div.style.left = parseInt(touchLocation.pageX) + 'px';
+                div.style.top = parseInt(touchLocation.pageY) + 'px';
+            })
         }
+
+
         function addTable(){
-            if(tables !== maxTables){
-                items.push({
-                    x: initialStateX,
-                    y: initialStateY,
-                    width: 60,
-                    height: 35,
-                    color: "red",
-                    isDragging: false
-                });
-                tables++
-                checkAndUpdateStates()
-                draw();
-                updateValues();
-            }else{
-                alert("Out of available tables.")
+            
+            if(maxTables === tablesCount){
+                alert("No more tables available.")
+                return
             }
+
+            // creates element and appends to body
+            const div = document.createElement("div");
+            div.className = "bg-red-700 absolute shadow-lg w-12 h-8 cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
+            imageDownload.appendChild(div)
+            
+            // makes it draggable
+            $( ".draggable" ).draggable();
+            
+            // on double click it removes it
+            $('.draggable').dblclick(function(){
+                $(this).remove();
+                // removes table count
+                updateValues()
+            });
+            
+            // adds table count
+            updateValues()
+
+            div.addEventListener('touchmove', function (ev) {
+                var touchLocation = ev.targetTouches[0];
+                div.style.left = parseInt(touchLocation.pageX) + 'px';
+                div.style.top = parseInt(touchLocation.pageY) + 'px';
+            })
         }        
 
-        draw();
-        make_base();
-
+        
         function updateValues(){
-            tables = 0;
-            chairs = 0;
-            for(i = 0; items.length > i; i++){
-                let currentItem = items[i];
-                if(currentItem.width === 60){
-                    tables++
-                }else{
-                    chairs++
-                }
-            }
-            chairsAmount.innerHTML = `${chairs}/${maxChairs} Chairs`;
-            tablesAmount.innerHTML = `${tables}/${maxTables} Tables`;
+            chairsCount = 0;
+            tablesCount = 0;
+            const tempTablesCount = document.querySelectorAll(".w-12")
+            tempTablesCount.forEach(item => tablesCount++)
+            const tempChairsCount = document.querySelectorAll(".w-6")
+            tempChairsCount.forEach(item => chairsCount++)
+            chairsAmount.innerHTML = `${chairsCount}/${maxChairs} Chairs`;
+            tablesAmount.innerHTML = `${tablesCount}/${maxTables} Tables`;
         };
 
-        function resetCanvas(){
-            confirm("Are you sure you want to reset your plan?")
-            clearCanvas();
-            tables = 0;
-            chairs = 0;
-            items = [];
-            initialStateX = 10;
-            initialStateY = 10;
-            updateValues()
-        }
-
-        function clearCanvas(){
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        function draw() {
-            make_base();
-            clearCanvas();
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                if (isMouseDown) {
-
-                }
-                ctx.beginPath();
-                if (item.isDragging) {
-                    ctx.rect(item.x + dragX, item.y + dragY, item.width, item.height);
-                } else {
-                    ctx.rect(item.x, item.y, item.width, item.height);
-                }
-                ctx.fillStyle = item.color
-                ctx.fill();
-            }
-        }
-
-
-        function setDragging(x, y) {
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                if (x >= item.x && x <= item.x + item.width && y >= item.y && y <= item.y + item.height) {
-                    item.isDragging = true;
-                    console.log("You've selected an object.")
-                }
-            }
-        }
-
-        function clearDragging(x, y) {
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                if (item.isDragging) {
-                    items[i].isDragging = false;
-                    item.x += dragX;
-                    item.y += dragY;
-                }
-            }
-        }
-
-        function handleMouseDown(e) {
-            mouseX = parseInt(e.clientX - offsetX);
-            mouseY = parseInt(e.clientY - offsetY);
-
-            // Put your mousedown stuff here
-            startX = mouseX;
-            startY = mouseY;
-            setDragging(startX, startY);
-            isMouseDown = true;
-        }
-
-        function handleMouseUp(e) {
-            mouseX = parseInt(e.clientX - offsetX);
-            mouseY = parseInt(e.clientY - offsetY);
-
-            // Put your mouseup stuff here
-            isMouseDown = false;
-            clearDragging();
-        }
-
-        function handleMouseOut(e) {
-            mouseX = parseInt(e.clientX - offsetX);
-            mouseY = parseInt(e.clientY - offsetY);
-
-            // Put your mouseOut stuff here
-            isMouseDown = false;
-            clearDragging();
-        }
-
-        function handleMouseMove(e) {
-            mouseX = parseInt(e.clientX - offsetX);
-            mouseY = parseInt(e.clientY - offsetY);
-
-            // Put your mousemove stuff here
-            if (isMouseDown) {
-                dragX = mouseX - startX;
-                dragY = mouseY - startY;
-                draw(mouseX, mouseY);
-            }
-        }
-        
-        canvas.addEventListener('touchmove', function(e) {
-            let touchLocation = e.targetTouches[0];
-            console.log(touchLocation)
-            touchX = parseInt(touchLocation.clientX - offsetX);
-            touchY = parseInt(touchLocation.clientY - offsetY);
-            setDragging(touchX, touchY);
-            //dragX = touchLocation.pageX - startX;
-            //dragY = touchLocation.pageY - startY;
-            draw(touchX, touchY);
-        })
-        
-        canvas.addEventListener('touchend', function(e) {
-            let touchLocation = e.targetTouches[0];
-            touchX = parseInt(touchLocation.clientX - offsetX);
-            touchY = parseInt(touchLocation.clientY - offsetY);
-            clearDragging();
-        })
-
-        $("#canvas").mousedown(function (e) {
-            handleMouseDown(e);
-        });
-        $("#canvas").mousemove(function (e) {
-            handleMouseMove(e);
-        });
-        $("#canvas").mouseup(function (e) {
-            handleMouseUp(e);
-        });
-        $("#canvas").mouseout(function (e) {
-            handleMouseOut(e);
-        });
-
-        function setImage(){
-            const dataURI = canvasObject.toDataURL();
-            imageDisplay.src = dataURI;
-            downloadImageURL = dataURI;
+        function setImage(dataUrl){
+            imageDisplay.src = dataUrl;
+            downloadImageURL = dataUrl;
             mainSection.style.display = "none";
             imageWrapper.style.display = "block";
             imageDisplay.style.display = "block";
@@ -294,6 +214,7 @@
             mainSection.style.display = "grid";
             imageWrapper.style.display = "none";
             imageDisplay.style.display = "none";
+            saveButton.style.display = "block";
         }
 
         function downloadImage(){
