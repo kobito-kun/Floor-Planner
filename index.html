@@ -12,29 +12,36 @@
 <style>
 
 </style>
-<body class="min-h-screen overflow-hidden flex justify-center items-center bg-green-100 min-w-screen">    
-    <div onclick="slideToggleOwo()" class="absolute duration-300 hover:text-gray-600 text-2xl cursor-pointer p-5 items-center flex lg:hidden top-0 left-0" style="z-index: 1000;">
+<body class="min-h-screen overflow-hidden flex justify-center items-center min-w-screen">    
+    <!--<div onclick="slideToggleOwo()" class="absolute duration-300 hover:text-gray-600 text-2xl cursor-pointer p-5 items-center flex lg:hidden top-0 left-0" style="z-index: 1000;">
         <i class="fas fa-bars"></i>
     </div>
     <div id="sidebar_mobile" class="absolute min-h-screen top-0 left-0">
         <div class="lg:hidden absolute flex flex-col items-center justify-between py-5 left-0 h-screen w-16 bg-green-400" style="z-index: 900;">
             <div></div>
             <div class="text-2xl flex flex-col items-center justify-between">
-                <i class="fas fa-chair my-2 cursor-pointer hover:text-gray-600 duration-300"></i>
-                <i class="fas fa-table my-2 cursor-pointer hover:text-gray-600 duration-300"></i>
+                <i onclick="addChair()" class="fas fa-chair my-2 cursor-pointer hover:text-gray-600 duration-300"></i>
+                <i onclick="addTable()" class="fas fa-table my-2 cursor-pointer hover:text-gray-600 duration-300"></i>
             </div>
-            <i class="fas fa-forward m-3"></i>
+            <i onclick="saveTest()" class="fas fa-forward m-3 hover:text-gray-600 duration-300 cursor-pointer"></i>
         </div>
-        <div class="lg:hidden absolute flex flex-col items-center justify-between py-5 left-14 h-screen w-40 bg-green-400" style="z-index: 500;">
-            <div></div>
-            <div class="uppercase font-bold text-lg flex flex-col items-center justify-between">
-                <span class="my-2">Add 0/100</span>
-                <span class="my-2">Add 0/13</span>
-            </div>
-            <button id="saveButton" onclick="saveTest()" class="bg-green-600 font-bold text-white py-2 px-4 rounded-xl focus:outline-none hover:bg-green-700 duration-300 shadow">CONTINUE</button>
-        </div>    
+    </div>-->
+    <div class="lg:hidden h-12 w-screen absolute top-0 bg-green-400 z-50 flex justify-between items-center px-4">
+        <span><span class="font-bold" id="chairs">0/100 Chairs</span></span>
+        <div class="text-2xl">
+            <i onclick="addChair()" class="fas fa-chair hover:text-gray-600 duration-300"></i>
+            <i onclick="addTable()" class="fas fa-table hover:text-gray-600 duration-300"></i>
+        </div>
+        <span><span class="font-bold" id="tables">0/13 Tables</span></span>
     </div>
-    <section class="grid lg:grid lg:grid-cols-2 w-screen h-screen" id="mainsection">
+    <div class="lg:hidden h-12 w-screen absolute bottom-0 bg-green-400 z-50 flex justify-between items-center">
+        <div></div>
+        <div onclick="saveTest()" class="text-xl font-black uppercase text-center hover:text-gray-600 duration-300">
+            <h3>Continue <i class="fas fa-forward"></i></h3>
+        </div>
+        <div></div>
+    </div>    
+    <section class="grid lg:grid-cols-2 w-screen h-screen" id="mainsection">
         <div id="testitem" class="lg:h-screen hidden lg:flex justify-center items-center flex-col bg-green-200 text-center">
             <h2 class="text-2xl lg:text-6xl lg:block font-black lg:pt-0 p-4 text-green-900">Nubian Gallery</h2>
             <div class="flex justify-center items-center">
@@ -48,35 +55,19 @@
                 <span>Currently using: <span class="font-bold" id="tables">0/13 Tables</span></span>
             </div>
         </div>
-        <div id="imageDownload" class="h-auto relative lg:h-screen flex justify-end p-5 items-center bg-green-100">
-
-            <!-- TESTING
-                <div class="bg-red-700 absolute cursor-pointer ease-out hover:scale-105 ease-in transform shadow-lg w-6 h-6 draggable"></div>
-            -->
-           
-            <div class="bg-white shadow-lg" id="image" style="background-image: url('/floorplan.png'); background-size: cover; height: 750px; width: 340px"></div>
-           
+        <div id="imageDownload" class="h-auto relative lg:h-screen flex justify-center items-center">
+            <div class="bg-white shadow-lg" id="image" style="background-image: url('/floorplan.png'); background-size: contain; background-position: center; background-repeat: no-repeat; height: 80%; width: 90%;"></div>
+            <button id="saveButton" onclick="saveTest()" class="bg-green-600 hidden lg:block font-bold text-white py-2 px-4 rounded-xl focus:outline-none hover:bg-green-700 duration-300 shadow absolute bottom-5 right-5">CONTINUE</button>
         </div>
     </section>
     <div id="imageWrapper" class="h-screen w-screen flex items-center justify-center bg-gray-200" style="display: none; position: absolute">
-        <button class="font-bold bg-green-500 px-4 py-2 text-white rounded-lg m-4 focus:outline-none" onclick="removeImageDisplay()">CLOSE &#10005;</button>
         <div class="text-center top-2/4 left-2/4 absolute" style="transform: translate(-50%, -50%);">
+        <button class="font-bold bg-green-500 px-4 py-2 text-white rounded-xl m-4 text-2xl focus:outline-none" onclick="removeImageDisplay()">CLOSE &#10005;</button>
             <button onclick="downloadImage()" class="py-2 px-4 m-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">SAVE</button>
-            <img src="" id="imageDisplay" class="border-2" style="display: none">
+            <img src="" id="imageDisplay" class="border-2" style="display: none;">
         </div>
     </div>
     <script>
-
-        // initial testings
-        $(function() {
-            $( ".draggable" ).draggable();
-            
-            $('.draggable').dblclick(function(){
-                $(this).remove();
-                // chair count remove
-                chairsCount--
-            });
-        } );
         
         const imageDisplay = document.getElementById("imageDisplay");
         const imageWrapper = document.getElementById("imageWrapper");
@@ -97,25 +88,6 @@
         function slideToggleOwo(){
             $("#sidebar_mobile").toggle();
         }
-
-        mustachio.forEach(item => {
-            item.addEventListener('touchmove', function (ev) {
-                var touchLocation = ev.targetTouches[0];
-                item.style.left = parseInt(touchLocation.pageX) + 'px';
-                item.style.top = parseInt(touchLocation.pageY) + 'px';
-            })
-        })
-
-        function updateStuff(){
-            mustachio.forEach(item => {
-                item.addEventListener('touchmove', function (ev) {
-                    var touchLocation = ev.targetTouches[0];
-                    item.style.left = parseInt(touchLocation.pageX) + 'px';
-                    item.style.top = parseInt(touchLocation.pageY) + 'px';
-                })
-            })  
-        }
-
 
         function saveTest(){
             saveButton.style.display = "none";
@@ -150,7 +122,6 @@
             updateValues()
 
             div.addEventListener('touchmove', function (ev) {
-                console.log(ev)
                 var touchLocation = ev.targetTouches[0];
                 div.style.left = parseInt(touchLocation.pageX) + 'px';
                 div.style.top = parseInt(touchLocation.pageY) + 'px';
@@ -214,7 +185,9 @@
             mainSection.style.display = "grid";
             imageWrapper.style.display = "none";
             imageDisplay.style.display = "none";
-            saveButton.style.display = "block";
+            if(screen.width > 600){
+                saveButton.style.display = "block";
+            }
         }
 
         function downloadImage(){
