@@ -27,12 +27,12 @@
         </div>
     </div>-->
     <div class="lg:hidden h-12 w-screen absolute top-0 bg-green-400 z-50 flex justify-between items-center px-4">
-        <span><span class="font-bold" id="chairs">0/100 Chairs</span></span>
+        <span><span class="font-bold" id="chairs-mobile">0/100 Chairs</span></span>
         <div class="text-2xl">
             <i onclick="addChair()" class="fas fa-chair hover:text-gray-600 duration-300"></i>
             <i onclick="addTable()" class="fas fa-table hover:text-gray-600 duration-300"></i>
         </div>
-        <span><span class="font-bold" id="tables">0/13 Tables</span></span>
+        <span><span class="font-bold" id="tables-mobile">0/13 Tables</span></span>
     </div>
     <div class="lg:hidden h-12 w-screen absolute bottom-0 bg-green-400 z-50 flex justify-between items-center">
         <div></div>
@@ -71,8 +71,13 @@
         
         const imageDisplay = document.getElementById("imageDisplay");
         const imageWrapper = document.getElementById("imageWrapper");
+
         const chairsAmount = document.getElementById("chairs");
         const tablesAmount = document.getElementById("tables");
+
+        const chairsAmountMobile = document.getElementById("chairs-mobile");
+        const tablesAmountMobile = document.getElementById("tables-mobile");
+
         const mainSection = document.getElementById("mainsection");
         const mustachio = document.querySelectorAll(".draggable");
         const canvasObject = document.getElementById("image");
@@ -169,8 +174,14 @@
             tempTablesCount.forEach(item => tablesCount++)
             const tempChairsCount = document.querySelectorAll(".w-6")
             tempChairsCount.forEach(item => chairsCount++)
-            chairsAmount.innerHTML = `${chairsCount}/${maxChairs} Chairs`;
-            tablesAmount.innerHTML = `${tablesCount}/${maxTables} Tables`;
+            
+            if(screen.width > 600){
+                chairsAmount.innerHTML = `${chairsCount}/${maxChairs} Chairs`;
+                tablesAmount.innerHTML = `${tablesCount}/${maxTables} Tables`;
+            }else{
+                chairsAmountMobile.innerHTML = `${chairsCount}/${maxChairs} Chairs`;
+                tablesAmountMobile.innerHTML = `${tablesCount}/${maxTables} Tables`;            
+            }
         };
 
         function setImage(dataUrl){
