@@ -12,24 +12,12 @@
 <style>
 
 </style>
-<body class="min-h-screen overflow-hidden flex justify-center items-center min-w-screen">    
-    <!--<div onclick="slideToggleOwo()" class="absolute duration-300 hover:text-gray-600 text-2xl cursor-pointer p-5 items-center flex lg:hidden top-0 left-0" style="z-index: 1000;">
-        <i class="fas fa-bars"></i>
-    </div>
-    <div id="sidebar_mobile" class="absolute min-h-screen top-0 left-0">
-        <div class="lg:hidden absolute flex flex-col items-center justify-between py-5 left-0 h-screen w-16 bg-green-400" style="z-index: 900;">
-            <div></div>
-            <div class="text-2xl flex flex-col items-center justify-between">
-                <i onclick="addChair()" class="fas fa-chair my-2 cursor-pointer hover:text-gray-600 duration-300"></i>
-                <i onclick="addTable()" class="fas fa-table my-2 cursor-pointer hover:text-gray-600 duration-300"></i>
-            </div>
-            <i onclick="saveTest()" class="fas fa-forward m-3 hover:text-gray-600 duration-300 cursor-pointer"></i>
-        </div>
-    </div>-->
+<body class="h-screen overflow-hidden flex justify-center items-center w-screen">
     <div class="lg:hidden h-12 w-screen absolute top-0 bg-green-400 z-50 flex justify-between items-center px-4">
         <span><span class="font-bold" id="chairs-mobile">0/100 Chairs</span></span>
         <div class="text-2xl">
             <i onclick="addChair()" class="fas fa-chair hover:text-gray-600 duration-300"></i>
+            <i onclick="addText()" class="fas fa-comment hover:text-gray-600 duration-300"></i>
             <i onclick="addTable()" class="fas fa-table hover:text-gray-600 duration-300"></i>
         </div>
         <span><span class="font-bold" id="tables-mobile">0/13 Tables</span></span>
@@ -47,6 +35,7 @@
             <div class="flex justify-center items-center">
                 <button onclick="addChair()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Chair</button>
                 <button onclick="addTable()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Table</button>
+                <button onclick="addText()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">Add a Text</button>
             </div>
             <div>
                 <span>Currently using: <span class="font-bold" id="chairs">0/100 Chairs</span></span>
@@ -56,7 +45,7 @@
             </div>
         </div>
         <div id="imageDownload" class="h-auto relative lg:h-screen flex justify-center items-center">
-            <div class="bg-white shadow-lg" id="image" style="background-image: url('/floorplan.png'); background-size: contain; background-position: center; background-repeat: no-repeat; height: 80%; width: 90%;"></div>
+            <div class="bg-white relative items-center justify-center flex" id="image" style="background-image: url('/floorplan.png'); background-size: contain; background-position: center; background-repeat: no-repeat; height: 80%; width: 90%;"></div>
             <button id="saveButton" onclick="saveTest()" class="bg-green-600 hidden lg:block font-bold text-white py-2 px-4 rounded-xl focus:outline-none hover:bg-green-700 duration-300 shadow absolute bottom-5 right-5">CONTINUE</button>
         </div>
     </section>
@@ -82,7 +71,7 @@
         const mustachio = document.querySelectorAll(".draggable");
         const canvasObject = document.getElementById("image");
         const allTesting = document.querySelectorAll(".draggable");
-        const imageDownload = document.getElementById("imageDownload");
+        const imageDownload = document.getElementById("image");
         const saveButton = document.getElementById("saveButton");
         const maxChairs = 100;
         const maxTables = 13;
@@ -90,13 +79,9 @@
         let tablesCount = 0;        
         let downloadImageURL;
 
-        function slideToggleOwo(){
-            $("#sidebar_mobile").toggle();
-        }
-
         function saveTest(){
             saveButton.style.display = "none";
-            domtoimage.toPng(document.getElementById("imageDownload")).then(function (dataUrl) {
+            domtoimage.toPng(document.getElementById("image")).then(function (dataUrl) {
                 setImage(dataUrl);
             });
         }
@@ -166,6 +151,34 @@
             })
         }        
 
+        function addText(){
+            
+            // creates element and appends to body
+            const input = prompt("Insert a text")
+            const div = document.createElement("div");
+            div.className = "absolute border-2 p-1 shadow-lg uppercase font-semibold cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
+            div.innerHTML = input;
+            imageDownload.appendChild(div)
+            
+            // makes it draggable
+            $( ".draggable" ).draggable();
+            
+            // on double click it removes it
+            $('.draggable').dblclick(function(){
+                $(this).remove();
+                // removes table count
+                updateValues()
+            });
+            
+            // adds table count
+            updateValues()
+
+            div.addEventListener('touchmove', function (ev) {
+                var touchLocation = ev.targetTouches[0];
+                div.style.left = parseInt(touchLocation.pageX) + 'px';
+                div.style.top = parseInt(touchLocation.pageY) + 'px';
+            })
+        }      
         
         function updateValues(){
             chairsCount = 0;
