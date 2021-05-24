@@ -44,8 +44,8 @@
                 <span>Currently using: <span class="font-bold" id="tables">0/13 Tables</span></span>
             </div>
         </div>
-        <div id="imageDownload" class="h-auto relative lg:h-screen flex justify-center items-center">
-            <div class="bg-white relative items-center justify-center flex" id="image" style="background-image: url('/floorplan.png'); background-size: contain; background-position: center; background-repeat: no-repeat; height: 80%; width: 90%;"></div>
+        <div id="imageDownload" class="relative lg:h-screen flex justify-center items-center">
+            <div class="bg-white relative items-center justify-center flex" id="image" style="background-image: url('/floorplan.png'); background-size: contain; background-position: center; background-repeat: no-repeat; height: 70%; width: 90%;"></div>
             <button id="saveButton" onclick="saveTest()" class="bg-green-600 hidden lg:block font-bold text-white py-2 px-4 rounded-xl focus:outline-none hover:bg-green-700 duration-300 shadow absolute bottom-5 right-5">CONTINUE</button>
         </div>
     </section>
@@ -94,7 +94,7 @@
 
             // creates element and appends to body
             const div = document.createElement("div");
-            div.className = "chair-element bg-red-700 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
+            div.className = "chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
             imageDownload.appendChild(div)
             
             // makes it draggable
@@ -127,7 +127,7 @@
 
             // creates element and appends to body
             const div = document.createElement("div");
-            div.className = "bg-red-700 absolute shadow-lg w-12 h-8 cursor-pointer hover:scale-105 ease-in transform ease-out draggable table-element";
+            div.className = "bg-red-700 absolute shadow-lg w-10 h-6 cursor-pointer hover:scale-105 ease-in transform ease-out draggable table-element";
             imageDownload.appendChild(div)
             
             // makes it draggable
