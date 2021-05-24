@@ -13,7 +13,7 @@
 
 </style>
 <body class="max-h-full flex justify-center items-center max-w-screen" style="overflow-y: hidden; overflow-x: hidden;">
-    <div class="lg:hidden h-12 w-screen absolute top-0 bg-green-400 z-50 flex justify-between items-center px-4">
+    <div class="lg:hidden h-12 w-screen fixed top-0 bg-green-400 z-50 flex justify-between items-center px-4">
         <span><span class="font-bold" id="chairs-mobile">0/100 Chairs</span></span>
         <div class="text-2xl">
             <i onclick="addChair()" class="fas fa-chair hover:text-gray-600 duration-300"></i>
@@ -22,7 +22,7 @@
         </div>
         <span><span class="font-bold" id="tables-mobile">0/13 Tables</span></span>
     </div>
-    <div class="lg:hidden h-12 w-screen absolute bottom-0 bg-green-400 z-50 flex justify-between items-center">
+    <div class="lg:hidden h-12 w-screen fixed bottom-0 bg-green-400 z-50 flex justify-between items-center">
         <div></div>
         <div onclick="saveTest()" class="text-xl font-black uppercase text-center hover:text-gray-600 duration-300">
             <h3>Continue <i class="fas fa-forward"></i></h3>
