@@ -12,7 +12,7 @@
 <style>
 
 </style>
-<body class="h-screen overflow-hidden flex justify-center items-center w-screen">
+<body class="max-h-full flex justify-center items-center max-w-screen" style="overflow-y: hidden; overflow-x: hidden;">
     <div class="lg:hidden h-12 w-screen absolute top-0 bg-green-400 z-50 flex justify-between items-center px-4">
         <span><span class="font-bold" id="chairs-mobile">0/100 Chairs</span></span>
         <div class="text-2xl">
@@ -69,7 +69,6 @@
 
         const mainSection = document.getElementById("mainsection");
         const mustachio = document.querySelectorAll(".draggable");
-        const canvasObject = document.getElementById("image");
         const allTesting = document.querySelectorAll(".draggable");
         const imageDownload = document.getElementById("image");
         const saveButton = document.getElementById("saveButton");
@@ -95,7 +94,7 @@
 
             // creates element and appends to body
             const div = document.createElement("div");
-            div.className = "bg-red-700 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
+            div.className = "chair-element bg-red-700 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
             imageDownload.appendChild(div)
             
             // makes it draggable
@@ -128,7 +127,7 @@
 
             // creates element and appends to body
             const div = document.createElement("div");
-            div.className = "bg-red-700 absolute shadow-lg w-12 h-8 cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
+            div.className = "bg-red-700 absolute shadow-lg w-12 h-8 cursor-pointer hover:scale-105 ease-in transform ease-out draggable table-element";
             imageDownload.appendChild(div)
             
             // makes it draggable
@@ -183,9 +182,9 @@
         function updateValues(){
             chairsCount = 0;
             tablesCount = 0;
-            const tempTablesCount = document.querySelectorAll(".w-12")
+            const tempTablesCount = document.querySelectorAll(".table-element")
             tempTablesCount.forEach(item => tablesCount++)
-            const tempChairsCount = document.querySelectorAll(".w-6")
+            const tempChairsCount = document.querySelectorAll(".chair-element")
             tempChairsCount.forEach(item => chairsCount++)
             
             if(screen.width > 600){
