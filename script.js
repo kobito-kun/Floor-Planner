@@ -85,8 +85,8 @@ function addTable(){
 
     div.addEventListener('touchmove', function (ev) {
         var touchLocation = ev.targetTouches[0];
-        div.style.left = parseInt(touchLocation.pageX) + 'px';
-        div.style.top = parseInt(touchLocation.pageY) + 'px';
+        div.style.left = parseInt(touchLocation.pageX-20) + 'px';
+        div.style.top = parseInt(touchLocation.pageY-120) + 'px';
     })
 }        
 
@@ -114,8 +114,8 @@ function addText(){
 
     div.addEventListener('touchmove', function (ev) {
         var touchLocation = ev.targetTouches[0];
-        div.style.left = parseInt(touchLocation.pageX) + 'px';
-        div.style.top = parseInt(touchLocation.pageY) + 'px';
+        div.style.left = parseInt(touchLocation.pageX-20) + 'px';
+        div.style.top = parseInt(touchLocation.pageY-120) + 'px';
     })
 }      
 

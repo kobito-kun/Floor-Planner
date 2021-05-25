@@ -9,6 +9,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
 </head>
+<style>
+#image{
+    height: 90%;
+}
+@media only screen and (max-width: 600px) {
+  #image {
+    height: 75% !important;
+  }
+}
+</style>
 <body class="max-h-full flex justify-center items-center max-w-screen" style="overflow-y: hidden; overflow-x: hidden;">
     <div class="lg:hidden h-12 w-screen fixed top-0 bg-green-400 z-50 flex justify-between items-center px-4">
         <span><span class="font-bold" id="chairs-mobile">0/100 Chairs</span></span>
@@ -42,7 +52,7 @@
             </div>
         </div>
         <div id="imageDownload" class="relative lg:h-screen flex justify-center items-center">
-            <div class="bg-white relative items-center justify-center flex" id="image" style="background-image: url('/floorplan.png'); background-size: contain; background-position: center; background-repeat: no-repeat; height: 70%; width: 90%;"></div>
+            <div class="bg-white relative items-center justify-center flex" id="image" style="background-image: url('/floorplan.png'); background-size: contain; background-position: center; background-repeat: no-repeat; width: 90%;"></div>
             <button id="saveButton" onclick="saveTest()" class="bg-green-600 hidden lg:block font-bold text-white py-2 px-4 rounded-xl focus:outline-none hover:bg-green-700 duration-300 shadow absolute bottom-5 right-5">CONTINUE</button>
         </div>
     </section>
