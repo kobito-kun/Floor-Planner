@@ -39,7 +39,7 @@ function addChair(){
     
     // makes it draggable
     $(div).draggable();
-    
+
     // on double click it removes it
     $(div).dblclick(function(){
         $(this).remove();
@@ -73,6 +73,16 @@ function addTable(){
     // makes it draggable
     $(div).draggable();
     
+    // rotating function
+    $(div).click(function(){
+        const transformStyle = this.style.transform
+        if(transformStyle === "rotate(90deg)"){
+            $(this).css("transform", "rotate(180deg)");
+        }else{
+            $(this).css("transform", "rotate(90deg)");
+        }
+    })
+
     // on double click it removes it
     $(div).dblclick(function(){
         $(this).remove();
