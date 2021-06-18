@@ -19,9 +19,7 @@ let chairsCount = 0;
 let tablesCount = 0;        
 let downloadImageURL;
 let bodyActions = false;
-
-
-const addBoxesPrompt = confirm("editable boxes?");
+let addBoxesPrompt = false;
 
 function setBodyActions(){
     if(bodyActions === true){
@@ -35,79 +33,29 @@ function setBodyActions(){
     }
 }
 
-if(addBoxesPrompt){
-    document.getElementById("image").innerHTML += `
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 99px; top: 211px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 103px; top: 236px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 78px; top: 211px;"></div>
-                
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 184px; top: 376px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 125px; top: 376px;"></div>
-                
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 450px;"></div>
-                <div class="bg-green-700 absolute shadow-lg w-14 h-3 cursor-pointer hover:scale-105 ease-in transform ease-out draggable preloaded-boxes ui-draggable ui-draggable-handle" style="left: 133px; top: 450px;"></div>
-                <div class="bg-green-700 absolute shadow-lg w-14 h-3 cursor-pointer hover:scale-105 ease-in transform ease-out draggable preloaded-boxes ui-draggable ui-draggable-handle" style="left: 76px; top: 450px;"></div>
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 190px; top: 450px;"></div>
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 51px; top: 450px;"></div>
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 225px; top: 450px;"></div>
-                
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 380px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 420px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 335px;"></div>
-
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 203px; top: 345px;"></div>
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 230px; top: 345px;"></div>
-
-                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 123px; top: 430px;"></div>
-                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-6 h-3 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 144px; top: 438px;"></div>
-                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-6 h-3 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 98px; top: 438px;"></div>
-                
-                <div class="preloaded-boxes bg-yellow-400 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 268px; top: 597px;"></div>
-                <div class="preloaded-boxes bg-yellow-400 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 236px; top: 510px;"></div>`
-    
-    $(".preloaded-boxes").draggable();
-
-    $(".preloaded-boxes").dblclick(function(){
-        $(this).remove();
-    });
-
-    for(let i = 0; allTesting.length > i; i++){
-        allTesting[i].addEventListener('touchmove', (ev) => {
-            let touchLocation = ev.targetTouches[0];
-            allTesting[i].style.left = parseInt(touchLocation.pageX) + 'px';
-            allTesting[i].style.top = parseInt(touchLocation.pageY) + 'px';
-        })
+$(".preloaded-boxes").on("click", () => {
+    if(!addBoxesPrompt){
+        addBoxesPrompt = confirm("editable boxes?");
     }
-    
-}else{
-    document.getElementById("image").innerHTML += `
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 99px; top: 211px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 103px; top: 236px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 78px; top: 211px;"></div>
-                
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 184px; top: 376px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 125px; top: 376px;"></div>
-                
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 450px;"></div>
-                <div class="bg-green-700 absolute shadow-lg w-14 h-3 cursor-pointer hover:scale-105 ease-in transform ease-out draggable preloaded-boxes ui-draggable ui-draggable-handle" style="left: 133px; top: 450px;"></div>
-                <div class="bg-green-700 absolute shadow-lg w-14 h-3 cursor-pointer hover:scale-105 ease-in transform ease-out draggable preloaded-boxes ui-draggable ui-draggable-handle" style="left: 76px; top: 450px;"></div>
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 190px; top: 450px;"></div>
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 51px; top: 450px;"></div>
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 225px; top: 450px;"></div>
-                
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 380px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 420px;"></div>
-                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 335px;"></div>
+    checkAndEnableDragging();
+})
 
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 203px; top: 345px;"></div>
-                <div class="preloaded-boxes bg-blue-800 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 230px; top: 345px;"></div>
-
-                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 123px; top: 430px;"></div>
-                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-6 h-3 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 144px; top: 438px;"></div>
-                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-6 h-3 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 98px; top: 438px;"></div>
-                
-                <div class="preloaded-boxes bg-yellow-400 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 268px; top: 597px;"></div>
-                <div class="preloaded-boxes bg-yellow-400 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 236px; top: 510px;"></div>`
+function checkAndEnableDragging(){   
+    if(addBoxesPrompt){
+        $(".preloaded-boxes").draggable();
+        
+        $(".preloaded-boxes").dblclick(function(){
+            $(this).remove();
+        });
+        
+        for(let i = 0; allTesting.length > i; i++){
+            allTesting[i].addEventListener('touchmove', (ev) => {
+                let touchLocation = ev.targetTouches[0];
+                allTesting[i].style.left = parseInt(touchLocation.pageX) + 'px';
+                allTesting[i].style.top = parseInt(touchLocation.pageY) + 'px';
+            })
+        }   
+    }
 }
 
 function saveTest(){
