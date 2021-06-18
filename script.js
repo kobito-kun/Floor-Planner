@@ -51,8 +51,8 @@ function checkAndEnableDragging(){
         for(let i = 0; allTesting.length > i; i++){
             allTesting[i].addEventListener('touchmove', (ev) => {
                 let touchLocation = ev.targetTouches[0];
-                allTesting[i].style.left = parseInt(touchLocation.pageX) + 'px';
-                allTesting[i].style.top = parseInt(touchLocation.pageY) + 'px';
+                allTesting[i].style.left = parseInt(touchLocation.pageX) - 40 + 'px';
+                allTesting[i].style.top = parseInt(touchLocation.pageY) - 130 + 'px';
             })
         }   
     }
