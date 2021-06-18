@@ -36,19 +36,41 @@ function setBodyActions(){
 }
 
 if(addBoxesPrompt){
-    document.getElementById("image").innerHTML += `<div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 106.6px; top: 212.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 106.6px; top: 231.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 86.6px; top: 213.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 11.7875px; top: 449.788px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 187px; top: 376px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 13.6px; top: 389.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 206.6px; top: 345.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 230.6px; top: 346.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 231.6px; top: 449.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 194.6px; top: 448.6px;"></div><div class="bg-red-700 absolute shadow-lg w-10 h-6 cursor-pointer hover:scale-105 ease-in transform ease-out draggable table-element ui-draggable ui-draggable-handle" style="left: 150px; top: 450.4px;"></div><div class="bg-red-700 absolute shadow-lg w-10 h-6 cursor-pointer hover:scale-105 ease-in transform ease-out draggable table-element ui-draggable ui-draggable-handle" style="left: 108px; top: 451.4px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 89.6px; top: 449.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 139.6px; top: 434.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 264.6px; top: 604.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 231px; top: 515px;"></div>`
-    
-    $(".chair-element").draggable();
-    $(".table-element").draggable();
+    document.getElementById("image").innerHTML += `
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 99px; top: 211px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 103px; top: 236px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 78px; top: 211px;"></div>
+                
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 184px; top: 376px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 125px; top: 376px;"></div>
+                
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 450px;"></div>
+                <div class="bg-green-700 absolute shadow-lg w-14 h-3 cursor-pointer hover:scale-105 ease-in transform ease-out draggable preloaded-boxes ui-draggable ui-draggable-handle" style="left: 133px; top: 450px;"></div>
+                <div class="bg-green-700 absolute shadow-lg w-14 h-3 cursor-pointer hover:scale-105 ease-in transform ease-out draggable preloaded-boxes ui-draggable ui-draggable-handle" style="left: 76px; top: 450px;"></div>
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 190px; top: 450px;"></div>
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 51px; top: 450px;"></div>
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 225px; top: 450px;"></div>
+                
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 380px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 420px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 335px;"></div>
 
-    $(".chair-element").dblclick(function(){
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 203px; top: 345px;"></div>
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 230px; top: 345px;"></div>
+
+                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 123px; top: 430px;"></div>
+                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-6 h-3 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 144px; top: 438px;"></div>
+                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-6 h-3 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 98px; top: 438px;"></div>
+                
+                <div class="preloaded-boxes bg-yellow-400 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 268px; top: 597px;"></div>
+                <div class="preloaded-boxes bg-yellow-400 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 236px; top: 510px;"></div>`
+    
+    $(".preloaded-boxes").draggable();
+
+    $(".preloaded-boxes").dblclick(function(){
         $(this).remove();
     });
 
-    $(".table-element").dblclick(function(){
-        $(this).remove();
-    });
-    
     for(let i = 0; allTesting.length > i; i++){
         allTesting[i].addEventListener('touchmove', (ev) => {
             let touchLocation = ev.targetTouches[0];
@@ -58,7 +80,34 @@ if(addBoxesPrompt){
     }
     
 }else{
-    document.getElementById("image").innerHTML += `<div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 106.6px; top: 212.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 106.6px; top: 231.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 86.6px; top: 213.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 11.7875px; top: 449.788px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 187px; top: 376px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 13.6px; top: 389.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 206.6px; top: 345.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 230.6px; top: 346.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 231.6px; top: 449.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 194.6px; top: 448.6px;"></div><div class="bg-red-700 absolute shadow-lg w-10 h-6 cursor-pointer hover:scale-105 ease-in transform ease-out draggable table-element ui-draggable ui-draggable-handle" style="left: 150px; top: 450.4px;"></div><div class="bg-red-700 absolute shadow-lg w-10 h-6 cursor-pointer hover:scale-105 ease-in transform ease-out draggable table-element ui-draggable ui-draggable-handle" style="left: 108px; top: 451.4px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 89.6px; top: 449.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 139.6px; top: 434.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 264.6px; top: 604.6px;"></div><div class="chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 231px; top: 515px;"></div>`
+    document.getElementById("image").innerHTML += `
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 99px; top: 211px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 103px; top: 236px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 78px; top: 211px;"></div>
+                
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 184px; top: 376px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 125px; top: 376px;"></div>
+                
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 450px;"></div>
+                <div class="bg-green-700 absolute shadow-lg w-14 h-3 cursor-pointer hover:scale-105 ease-in transform ease-out draggable preloaded-boxes ui-draggable ui-draggable-handle" style="left: 133px; top: 450px;"></div>
+                <div class="bg-green-700 absolute shadow-lg w-14 h-3 cursor-pointer hover:scale-105 ease-in transform ease-out draggable preloaded-boxes ui-draggable ui-draggable-handle" style="left: 76px; top: 450px;"></div>
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 190px; top: 450px;"></div>
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 51px; top: 450px;"></div>
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-6 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 225px; top: 450px;"></div>
+                
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 380px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 420px;"></div>
+                <div class="preloaded-boxes bg-yellow-600 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 12px; top: 335px;"></div>
+
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 203px; top: 345px;"></div>
+                <div class="preloaded-boxes bg-blue-800 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 230px; top: 345px;"></div>
+
+                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-5 h-5 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 123px; top: 430px;"></div>
+                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-6 h-3 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 144px; top: 438px;"></div>
+                <div class="preloaded-boxes bg-yellow-500 shadow-lg w-6 h-3 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 98px; top: 438px;"></div>
+                
+                <div class="preloaded-boxes bg-yellow-400 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 268px; top: 597px;"></div>
+                <div class="preloaded-boxes bg-yellow-400 shadow-lg w-3 h-6 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable ui-draggable ui-draggable-handle" style="left: 236px; top: 510px;"></div>`
 }
 
 function saveTest(){
