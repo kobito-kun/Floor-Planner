@@ -13,6 +13,7 @@ const mustachio = document.querySelectorAll(".draggable");
 const allTesting = document.getElementsByClassName("draggable");
 const imageDownload = document.getElementById("image");
 const lockButton = document.getElementById("lock");
+const floorSpace = window.location.search.split("=")[1]
 const maxChairs = 100;
 const maxTables = 13;
 let chairsCount = 0;
@@ -20,6 +21,9 @@ let tablesCount = 0;
 let downloadImageURL;
 let bodyActions = false;
 let addBoxesPrompt = false;
+
+// Add Folding Chairs
+// Add graying parts of the floor plan.
 
 function setBodyActions(){
     if(bodyActions === true){
@@ -92,7 +96,7 @@ function addChair(){
 
     // creates element and appends to body
     const div = document.createElement("div");
-    div.className = "chair-element bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
+    div.className = "chair-element z-20 bg-red-700 shadow-lg w-4 h-4 absolute cursor-pointer hover:scale-105 ease-in transform ease-out draggable";
     imageDownload.appendChild(div)
     
     // makes it draggable
@@ -124,7 +128,7 @@ function addTable(){
 
     // creates element and appends to body
     const div = document.createElement("div");
-    div.className = "bg-red-700 absolute shadow-lg w-10 h-6 cursor-pointer hover:scale-105 ease-in transform ease-out draggable table-element";
+    div.className = "bg-red-700 absolute z-20 shadow-lg w-10 h-6 cursor-pointer hover:scale-105 ease-in transform ease-out draggable table-element";
     imageDownload.appendChild(div)
     
     // makes it draggable
@@ -175,7 +179,7 @@ function addText(){
     // creates element and appends to body
     const input = prompt("Insert a text")
     const div = document.createElement("div");
-    div.className = "absolute border-2 p-1 shadow-lg uppercase font-semibold cursor-pointer hover:scale-105 text-xs ease-in transform ease-out draggable";
+    div.className = "absolute border-2 p-1 shadow-lg z-20 uppercase font-semibold cursor-pointer hover:scale-105 text-ss ease-in transform ease-out draggable";
     div.innerHTML = input;
     imageDownload.appendChild(div)
     
@@ -237,4 +241,4 @@ function downloadImage(){
     a.href = downloadImageURL;
     a.download = "floor-plan.png";
     a.click();
-}
+}   
