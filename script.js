@@ -82,7 +82,7 @@ function checkAndEnableDragging(){
 }
 
 function saveTest(){
-    domtoimage.toPng(document.getElementById("image")).then(function (dataUrl) {
+    domtoimage.toPng(document.getElementById("image"), {quality: 2}).then(function (dataUrl) {
         setImage(dataUrl);
     });
 }
@@ -178,31 +178,30 @@ function addText(){
     
     // creates element and appends to body
     const input = prompt("Insert a text")
-    const div = document.createElement("div");
-    div.className = "absolute border-2 p-1 shadow-lg z-20 uppercase font-semibold cursor-pointer hover:scale-105 text-ss ease-in transform ease-out draggable";
-    div.innerHTML = input;
-    imageDownload.appendChild(div)
-    
-    // makes it draggable
-    $(div).draggable();
-    
-    // on double click it removes it
-    $(div).dblclick(function(){
-        $(this).remove();
-        // removes table count
-        updateValues()
-    });
-    
-    // adds table count
-    updateValues()
-
-    div.addEventListener('touchmove', function (ev) {
-        var touchLocation = ev.targetTouches[0];
-        div.style.left = parseInt(touchLocation.pageX-20) + 'px';
-        div.style.top = parseInt(touchLocation.pageY-120) + 'px';
-    })
+    if(input.length > 0){
+        const div = document.createElement("div");
+        div.className = "absolute border-2 p-1 shadow-lg z-20 uppercase font-semibold cursor-pointer hover:scale-105 text-ss ease-in transform ease-out draggable";
+        div.innerHTML = input;
+        imageDownload.appendChild(div)
+        
+        // makes it draggable
+        $(div).draggable();
+        
+        // on double click it removes it
+        $(div).dblclick(function(){
+            $(this).remove();
+            // removes table count
+            updateValues()
+        });        
+        
+        div.addEventListener('touchmove', function (ev) {
+            var touchLocation = ev.targetTouches[0];
+            div.style.left = parseInt(touchLocation.pageX-20) + 'px';
+            div.style.top = parseInt(touchLocation.pageY-120) + 'px';
+        })
+    }
 }      
-
+    
 function updateValues(){
     chairsCount = 0;
     tablesCount = 0;
