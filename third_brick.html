@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>Floor Planning</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js" integrity="sha512-wUa0ktp10dgVVhWdRVfcUO4vHS0ryT42WOEcXjVVF2+2rcYBKTY7Yx7JCEzjWgPV+rj2EDUr8TwsoWF6IoIOPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />    
+</head>
+<style>
+.text-ss{
+    font-size: 0.60rem;
+    line-height: 1rem;
+}
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+<body id="mainbody" class="lg:max-h-full lg:overflow-y-hidden overflow-x-hidden flex lg:flex-row flex-col justify-center items-center lg:max-w-screen" >
+    <div onclick="saveTest()" class="bg-black text-white flex items-center justify-center cursor-pointer w-8 h-8 fixed bottom-2 right-2 rounded-full" style="z-index: 30;">
+        <i class="fas fa-forward"></i>
+    </div>
+    <div id="lock" onclick="setBodyActions()" class="bg-black lg:hidden text-white flex items-center justify-center cursor-pointer w-8 h-8 fixed bottom-12 right-2 rounded-full" style="z-index: 30;">
+        <i class="fas fa-lock"></i>
+    </div>
+    <div class="lg:hidden h-12 w-screen block bg-black text-white mb-1 z-10 flex justify-between items-center px-4">
+        <span><span class="font-bold" id="chairs-mobile">0/100 Chairs</span></span>
+        <div class="text-2xl">
+            <i onclick="addChair()" class="fas fa-chair hover:text-gray-600 duration-300 cursor-pointer"></i>
+            <i onclick="addText()" class="fas fa-comment hover:text-gray-600 duration-300 cursor-pointer"></i>
+            <i onclick="addTable()" class="fas fa-table hover:text-gray-600 duration-300 cursor-pointer"></i>
+        </div>
+        <span><span class="font-bold" id="tables-mobile">0/13 Tables</span></span>
+    </div>
+
+    <section class="grid lg:grid-cols-2 w-screen h-screen" id="mainsection">
+        <div id="testitem" class="lg:h-screen hidden lg:flex justify-center items-center flex-col bg-black text-white text-center">
+            <img src="https://secure.nubiangalleryroxbury.com/static/media/nubianlogo.7efaa783.webp" class="w-60">
+            <div class="flex justify-center items-center">
+                <button onclick="addChair()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-white font-bold text-black focus:outline-none duration-300 shadow">Add a Chair</button>
+                <button onclick="addTable()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-white font-bold text-black focus:outline-none  duration-300 shadow">Add a Table</button>
+                <button onclick="addText()" class="lg:py-2 mx-1 lg:px-4 py-1 px-2 bg-white font-bold text-black focus:outline-none duration-300 shadow">Add a Text</button>
+            </div>
+            <div>
+                <span>Currently using: <span class="font-bold" id="chairs">0/100 Chairs</span></span>
+            </div>
+            <div>
+                <span>Currently using: <span class="font-bold" id="tables">0/13 Tables</span></span>
+            </div>
+        </div>
+        <div id="imageDownload" class="relative lg:h-screen flex justify-center items-center lg:pb-0 pb-4">
+            <div class="bg-white relative items-center justify-center flex" id="image" style="background-image: url('/floorplan_third.png'); background-size: contain; background-position: center; background-repeat: no-repeat; width: 290px; height: 630px;">
+                <div class="trasform w-full z-10 bg-green-600 opacity-20 text-white center absolute" style="left: 8px; bottom: 7px; height: 105px; width: 70px"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD IMAGE PART -->
+    <div id="imageWrapper" class="h-full w-screen flex items-center justify-center z-50 bg-gray-200" style="display: none; position: absolute">
+        <div class="text-center top-2/4 left-2/4 absolute" style="transform: translate(-50%, -50%);">
+        <button class="font-bold bg-green-500 px-4 py-2 text-white rounded-xl m-4 text-2xl focus:outline-none" onclick="removeImageDisplay()">CLOSE &#10005;</button>
+            <button onclick="downloadImage()" class="py-2 px-4 m-2 bg-green-500 font-bold text-white text-2xl rounded-xl focus:outline-none hover:bg-green-400 duration-300 shadow">SAVE</button>
+            <img src="" id="imageDisplay" class="border-2 w-20 mx-auto" style="display: none;">
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
